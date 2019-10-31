@@ -8,9 +8,20 @@ public abstract class EnvironmentManager {
     // the Environment this EnvironmentManager will manage
     private Environment environment;
     // the current Time the managed Environment is in
-    private Time time;
+    private Time currentTime;
     // the amount of Time that passes per one run of a cycle
-    private int cycleLength;
+    private Time cycleLength;
+
+    /**
+     * Constructor for EnvironmentManager that initializes currentTime to start at 0.
+     * @param environment the Environment this EnvironmentManager will manage
+     * @param cycleLength the amount of Time that passes per one run of a cycle
+     */
+    public EnvironmentManager(Environment environment, Time cycleLength){
+        this.environment = environment;
+        this.cycleLength = cycleLength;
+        this.currentTime = new Time(0, 0);
+    }
 
     /**
      * Runs the Environment through a single cycle of length cycleLength.

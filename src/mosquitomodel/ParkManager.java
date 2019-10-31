@@ -1,12 +1,18 @@
 package mosquitomodel;
 
-import agentbasedmodel.Agent;
-import agentbasedmodel.EnvironmentManager;
-import agentbasedmodel.Report;
+import agentbasedmodel.*;
 
+import java.util.Collection;
 import java.util.List;
 
 public class ParkManager extends EnvironmentManager {
+
+    /**
+     * Constructor for ParkManager.
+     */
+    public ParkManager(Environment environment, Time cycleLength){
+        super(environment, cycleLength);
+    }
 
     @Override
     public Report runCycle() {
@@ -14,7 +20,7 @@ public class ParkManager extends EnvironmentManager {
     }
 
     @Override
-    public void seedEnvironment(List<Agent> agents) {
+    public void seedEnvironment(Collection<Agent> agents) {
 
     }
 }
