@@ -2,9 +2,20 @@ package mosquitomodel;
 
 public class Mosquito {
 
-    // private fields
+    // whether or not this Mosquito unit is currently emitting a frequency
     private boolean active;
+
+    // the frequency at which this Mosquito emits
     private float emittedFrequency;
+
+    /**
+     * Constructor for Mosqutio that initializes its active state to be false.
+     * @param emittedFrequency the frequency this Mosquito emits at
+     */
+    public Mosquito(float emittedFrequency){
+        this.active = false;
+        this.emittedFrequency = emittedFrequency;
+    }
 
     /**
      * Sets emittedFrequency to the given frequency.
@@ -16,9 +27,7 @@ public class Mosquito {
     /**
      * @return emittedFrequency
      */
-    public float getEmittedFrequency(){
-        return this.emittedFrequency;
-    }
+    public float getEmittedFrequency(){ return this.emittedFrequency; }
 
     /**
      * Marks this Mosquito as active.
