@@ -1,15 +1,28 @@
 package agentbasedmodel;
 
+import java.util.Collection;
 import java.util.List;
 
 public abstract class EnvironmentManager {
 
+    // the Environment this EnvironmentManager will manage
     private Environment environment;
+    // the current Time the managed Environment is in
     private Time time;
+    // the amount of Time that passes per one run of a cycle
     private int cycleLength;
 
+    /**
+     * Runs the Environment through a single cycle of length cycleLength.
+     * @return a single Report which reflects the state of the Environment by the end of the cycle
+     */
     public abstract Report runCycle();
 
-    public abstract void seedEnvironment(List<Agent> agents);
+    /**
+     * Adds the given collection of Agents to the managed Environment's population. Should be run at least once
+     * before the first cycle is run.
+     * @param agents the Collection of Agents to add to the Environment's population
+     */
+    public abstract void seedEnvironment(Collection<Agent> agents);
 
 }
