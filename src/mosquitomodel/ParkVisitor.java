@@ -27,8 +27,8 @@ public class ParkVisitor extends Agent {
     /**
      * @return the hearing loss of this visitor
      */
-    public float getHearingLoss(){
-        return biology.getHearingLoss();
+    public float getMaxFrequencyHearable(){
+        return biology.getMaxFrequencyHearable();
     }
 
     /**
@@ -51,5 +51,11 @@ public class ParkVisitor extends Agent {
     public float getAversionToPark(){
         return biology.getAversionToPark();
     }
+
+    /**
+     * Sets this ParkVisitor's aversion to visiting the park.
+     * @param aversionToPark new value of aversionToPark
+     */
+    public void setAversionToPark(int aversionToPark) { biology.setAversionToPark(aversionToPark); }
 
 }
