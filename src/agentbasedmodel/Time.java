@@ -32,6 +32,14 @@ public class Time {
     }
 
     /**
+     * Adds the given Time to this Time.
+     * @param time the Time to add to this Time
+     */
+    public void add(Time time){
+        this.advanceTime(time.getHour(), time.getMinute());
+    }
+
+    /**
      * @return hour
      */
     public int getHour(){
