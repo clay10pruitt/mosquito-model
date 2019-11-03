@@ -24,6 +24,12 @@ public class Environment {
     }
 
     /**
+     * Adds the given Agents to the population of the Environment.
+     * @param agents Collection of Agents to add to the Environment's population
+     */
+    public void addToPopulation(Collection<Agent> agents) { this.population.addAll(agents); }
+
+    /**
      * Removes the given Agent from the population of the Environment.
      * @param agent the Agent to remove from the Environment's population
      */
