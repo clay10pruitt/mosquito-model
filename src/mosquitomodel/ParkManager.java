@@ -153,6 +153,7 @@ public class ParkManager extends EnvironmentManager {
         Report report = generateReport();
 
         this.currentTime.add(cycleLength);
+        this.currentCycle++;
         return report;
     }
 
