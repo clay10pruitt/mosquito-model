@@ -126,6 +126,7 @@ public class ParkManager extends EnvironmentManager {
      */
     private Report generateReport(){
         String text = "Report for cycle#" + this.currentCycle;
+        text += "\t\n Time at Cycle Start: " + this.currentTime;
         text += "\n\tCurrent Population (" + this.environment.sizeOfPopulation() + "): ";
         for (Agent agent : this.environment.getPopulation()){
             text += "\n\t\t" + agent;
@@ -149,7 +150,10 @@ public class ParkManager extends EnvironmentManager {
         checkAndCorrectMosquito();
         checkAndCorrectSchedules();
 
-        return generateReport();
+        Report report = generateReport();
+
+        this.currentTime.add(cycleLength);
+        return report;
     }
 
 
