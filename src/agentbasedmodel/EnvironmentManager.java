@@ -6,11 +6,11 @@ import java.util.List;
 public abstract class EnvironmentManager {
 
     // the Environment this EnvironmentManager will manage
-    private Environment environment;
+    protected Environment environment;
     // the current Time the managed Environment is in
-    private Time currentTime;
+    protected Time currentTime;
     // the amount of Time that passes per one run of a cycle
-    private Time cycleLength;
+    protected Time cycleLength;
 
     /**
      * Constructor for EnvironmentManager.
