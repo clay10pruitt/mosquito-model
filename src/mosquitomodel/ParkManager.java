@@ -121,6 +121,20 @@ public class ParkManager extends EnvironmentManager {
 
     }
 
+    /**
+     * Generates a Report based on the current state of the Simulation.
+     */
+    private Report generateReport(){
+        String text = "Report for cycle#" + this.currentCycle;
+        text += "\n\tCurrent Population (" + this.environment.sizeOfPopulation() + "): ";
+        for (Agent agent : this.environment.getPopulation()){
+            text += "\n\t\t" + agent;
+        }
+        text += "\n";
+
+        return new Report(text);
+    }
+
     /*
     EnvironmentManager functions.
      */
@@ -135,7 +149,7 @@ public class ParkManager extends EnvironmentManager {
         checkAndCorrectMosquito();
         checkAndCorrectSchedules();
 
-        return null;
+        return generateReport();
     }
 
 
