@@ -27,6 +27,12 @@ public class Time implements Comparable<Time> {
      * @param minutes amount of minutes to advance by
      */
     public void advanceTime(int hours, int minutes){
+
+        // 60 min = 1 hour
+        hours += minutes / maxMinute;
+        minutes = minutes % maxMinute;
+        hours += (minute + minutes) / 60;
+
         hour = ((hour + hours) % maxHour);
         minute = ((minute + minutes) % maxMinute);
     }
