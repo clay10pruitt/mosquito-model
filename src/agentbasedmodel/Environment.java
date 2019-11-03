@@ -1,6 +1,7 @@
 package agentbasedmodel;
 
 import java.util.Collection;
+import java.util.Iterator;
 
 public class Environment {
 
@@ -28,6 +29,13 @@ public class Environment {
      * @param agents Collection of Agents to add to the Environment's population
      */
     public void addToPopulation(Collection<Agent> agents) { this.population.addAll(agents); }
+
+    /**
+     * @return population
+     */
+    public Collection<Agent> getPopulation(){
+        return this.population;
+    }
 
     /**
      * Removes the given Agent from the population of the Environment.
@@ -63,4 +71,5 @@ public class Environment {
         Environment e = (Environment) obj;
         return (this.population.equals(e.population));
     }
+
 }
