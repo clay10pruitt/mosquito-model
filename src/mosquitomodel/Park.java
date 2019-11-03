@@ -13,9 +13,11 @@ public class Park extends Environment {
 
     /**
      * Constructor for Park that initializes its population with type LinkedHashSet.
+     * @param mosquito this Park's associated Mosquito unit
      */
-    public Park(){
+    public Park(Mosquito mosquito){
         super(new LinkedHashSet<Agent>());
+        this.mosquito = mosquito;
     }
 
     /**
