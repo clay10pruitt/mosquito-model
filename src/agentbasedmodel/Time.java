@@ -144,6 +144,27 @@ public class Time implements Comparable<Time> {
         return ((this.hour == t.hour) && (this.minute == t.minute));
     }
 
+    @Override
+    public String toString() {
+
+        String hourText = "";
+        String minuteText = "";
+
+        if (this.hour < 10){
+            hourText = "0" + this.hour;
+        } else {
+            hourText += this.hour;
+        }
+
+        if (this.minute < 10){
+            minuteText = "0" + this.minute;
+        } else {
+            minuteText += this.minute;
+        }
+
+        return hourText + ":" + minuteText;
+    }
+
     /**
      * Compares this Time object to another.
      * @param o another Time Object
