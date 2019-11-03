@@ -1,6 +1,7 @@
 package mosquitomodel;
 
 import agentbasedmodel.Agent;
+import agentbasedmodel.Time;
 
 public class ParkVisitor extends Agent {
 
@@ -60,5 +61,21 @@ public class ParkVisitor extends Agent {
      * @param aversionToPark new value of aversionToPark
      */
     public void setAversionToPark(int aversionToPark) { biology.setAversionToPark(aversionToPark); }
+
+    /**
+     * Gets the Time this ParkVisitor goes to the Park.
+     * @return Time object
+     */
+    public Time getTimeIGoToPark(){
+        return this.schedule.getInTime();
+    }
+
+    /**
+     * Gets the Time this ParkVisitor leaves the Park.
+     * @return Time object
+     */
+    public Time getTimeILeavePark(){
+        return this.schedule.getOutTime();
+    }
 
 }
