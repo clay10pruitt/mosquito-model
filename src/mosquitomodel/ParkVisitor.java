@@ -6,15 +6,18 @@ public class ParkVisitor extends Agent {
 
     // the biological information contained within this ParkVisitor
     private ParkVisitorBiology biology;
+    // this ParkVisitor's schedule for visiting the Park
+    private Schedule schedule;
 
     /**
      * Constructor for ParkVisitor.
      * @param id the String associated with this ParkVisitor
      * @param biology the biological information of this ParkVisitor
      */
-    public ParkVisitor(String id, ParkVisitorBiology biology){
+    public ParkVisitor(String id, ParkVisitorBiology biology, Schedule schedule){
         super(id);
         this.biology = biology;
+        this.schedule = schedule;
     }
 
     /**

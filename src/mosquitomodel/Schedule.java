@@ -3,7 +3,7 @@ package mosquitomodel;
 import agentbasedmodel.Time;
 
 /**
- * Helper class for ParkManager to associate ParkVisitors with the Times that they are in the Park for.
+ * The schedule for a ParkVisitor visiting the Park.
  * @author Clayton Pruitt : clay10pruitt@gmail.com
  */
 
