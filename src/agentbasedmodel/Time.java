@@ -104,6 +104,13 @@ public class Time implements Comparable<Time> {
     }
 
     /**
+     * Overload for isBetween where inclusive defaults to true.
+     */
+    public boolean isBetween(Time time01, Time time02){
+        return this.isBetween(time01, time02, true);
+    }
+
+    /**
      * @return hour
      */
     public int getHour(){
