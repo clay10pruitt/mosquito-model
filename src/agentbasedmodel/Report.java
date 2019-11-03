@@ -28,4 +28,8 @@ public class Report {
         return this.info;
     }
 
+    @Override
+    public String toString() {
+        return this.info;
+    }
 }
