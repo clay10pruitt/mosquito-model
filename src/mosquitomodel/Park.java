@@ -31,4 +31,9 @@ public class Park extends Environment {
     public void deactivateMosquito(){
         this.mosquito.turnOff();
     }
+
+    /**
+     * @return whether or not this Park's Mosquito is active
+     */
+    public boolean mosquitoIsActive() { return this.mosquito.isActive(); }
 }
