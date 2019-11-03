@@ -14,6 +14,14 @@ public class Report {
     }
 
     /**
+     * Adds the given Report to this Report.
+     * @param report the Report to combine with this Report
+     */
+    public void add(Report report){
+        this.info += "\n\n" + report.info;
+    }
+
+    /**
      * @return info
      */
     public String getInfo(){
