@@ -81,5 +81,6 @@ public class ParkManager extends EnvironmentManager {
      */
     @Override
     public void seedEnvironment(Collection<Agent> agents) {
+        this.environment.addToPopulation(agents);
     }
 }
