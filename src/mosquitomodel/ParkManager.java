@@ -2,8 +2,9 @@ package mosquitomodel;
 
 import agentbasedmodel.*;
 
+import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
+import java.util.LinkedHashSet;
 
 public class ParkManager extends EnvironmentManager {
 
@@ -16,12 +17,15 @@ public class ParkManager extends EnvironmentManager {
     // the earliest Time for the Mosquito to be deactivated by
     private Time mosquitoDeactivationTime = new Time(8, 0);
 
+    // ParkVisitors that are currently in the Simulation but NOT the Park
+    private ArrayList<Agent> limbo;
+
     /*
     Constructor.
      */
 
     /**
-     * Constructor for ParkManager.
+     * Constructor for ParkManager that initializes the starting time to 8:00 AM.
      * @param environment the Park this ParkManager will manage
      * @param cycleLength the amount of Time that will pass with every cycle
      */
@@ -30,6 +34,8 @@ public class ParkManager extends EnvironmentManager {
         super(environment, cycleLength);
         // set starting time to 8:00 AM
         this.currentTime = new Time(8, 0);
+        // initialize limbo
+        limbo = new ArrayList<>();
     }
 
     /*
@@ -60,6 +66,61 @@ public class ParkManager extends EnvironmentManager {
         }
     }
 
+    /**
+     * Checks the Schedules of every ParkVisitor within the Park to correct if they should be in or out of the Park.
+     */
+    private void checkAndCorrectSchedules(){
+
+        // get Park and Park's population
+        Park park = (Park) this.environment;
+        LinkedHashSet<Agent> population = (LinkedHashSet<Agent>) park.getPopulation();
+
+        // determine who needs to be removed from the Park
+        ArrayList<Agent> agentsToRemove = new ArrayList<>();
+        for (Agent agent : population){
+
+            // get this specific ParkVisitor
+            ParkVisitor parkVisitor = (ParkVisitor) agent;
+
+            /*
+            If the current Time is not within the range of Time specified by this ParkVisitor's schedule, queue them
+            to leave the Park.
+             */
+            if (!currentTime.isBetween(parkVisitor.getTimeIGoToPark(), parkVisitor.getTimeILeavePark())){
+                agentsToRemove.add(agent);
+            }
+        }
+
+        // remove appropriate Agents from the Park and add them into limbo
+        for (Agent agent : agentsToRemove){
+            this.environment.removeFromPopulation(agent);
+            this.limbo.add(agent);
+        }
+
+        // determine who needs to be added to the Park
+        ArrayList<Agent> agentsToAdd = new ArrayList<>();
+        for (Agent agent : limbo){
+
+            // get this specific ParkVisitor
+            ParkVisitor parkVisitor = (ParkVisitor) agent;
+
+            /*
+            If the current Time is within the range of Time specified by this ParkVisitor's schedule, queue them to
+            enter the Park.
+             */
+            if (currentTime.isBetween(parkVisitor.getTimeIGoToPark(), parkVisitor.getTimeILeavePark())){
+                agentsToAdd.add(agent);
+            }
+        }
+
+        // remove appropriate Agents from limbo and add them into the Park
+        for (Agent agent : agentsToAdd){
+            this.environment.addToPopulation(agent);
+            this.limbo.remove(agent);
+        }
+
+    }
+
     /*
     EnvironmentManager functions.
      */
@@ -70,6 +131,10 @@ public class ParkManager extends EnvironmentManager {
      */
     @Override
     public Report runCycle() {
+
+        checkAndCorrectMosquito();
+        checkAndCorrectSchedules();
+
         return null;
     }
 
