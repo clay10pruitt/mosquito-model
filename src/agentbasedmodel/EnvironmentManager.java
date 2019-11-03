@@ -7,8 +7,12 @@ public abstract class EnvironmentManager {
 
     // the Environment this EnvironmentManager will manage
     protected Environment environment;
+
     // the current Time the managed Environment is in
     protected Time currentTime;
+
+    // the current Cycle the EnvironmentManager is in
+    protected int currentCycle;
     // the amount of Time that passes per one run of a cycle
     protected Time cycleLength;
 
