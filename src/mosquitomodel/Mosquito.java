@@ -43,4 +43,11 @@ public class Mosquito {
         this.active = false;
     }
 
+    /**
+     * @return whether this Mosquito is active or not
+     */
+    public boolean isActive(){
+        return this.active;
+    }
+
 }
