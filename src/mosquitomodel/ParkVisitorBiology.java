@@ -6,7 +6,7 @@ public class ParkVisitorBiology {
     private int age;
 
     // the highest frequency that can be heard by this ParkVisitor
-    private float maxFrequencyHearable;
+    private int maxFrequencyHearable;
 
     // the percent aversion to visiting the park with 0% = will always visit park and 100% = will never visit park
     private float aversionToPark;
@@ -16,7 +16,7 @@ public class ParkVisitorBiology {
      * @param age the age of the ParkVisitor
      * @param maxFrequencyHearable the highest frequency that can be heard by this ParkVisitor
      */
-    public ParkVisitorBiology(int age, float maxFrequencyHearable){
+    public ParkVisitorBiology(int age, int maxFrequencyHearable){
         this.age = age;
         this.maxFrequencyHearable = maxFrequencyHearable;
         this.aversionToPark = 0;
