@@ -35,19 +35,6 @@ public class ParkVisitor extends Agent {
         return biology.getMaxFrequencyHearable();
     }
 
-    /**
-     * @return the maximum frequency this visitor will tolerate
-     */
-    public float getMaxFrequencyTolerated(){
-        return biology.getMaxFrequencyTolerated();
-    }
-
-    /**
-     * @return the tolerance this visitor has to enduring the max frequency
-     */
-    public float getToleranceToMaxFrequency(){
-        return biology.getToleranceToMaxFrequency();
-    }
 
     /**
      * @return this visitor's aversion to visiting the park
