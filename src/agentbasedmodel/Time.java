@@ -22,6 +22,16 @@ public class Time implements Comparable<Time> {
     }
 
     /**
+     * Constructor for Time that constructs a new Time object from a string in HH:MM format.
+     * @param arg String in HH:MM form
+     */
+    public Time(String arg){
+        String[] args = arg.split(":");
+        this.hour = Integer.parseInt(args[0]);
+        this.minute = Integer.parseInt(args[1]);
+    }
+
+    /**
      * Advances the time by the given amount and ensures that we stay below the maximum time.
      * @param hours amount of hours to advance by
      * @param minutes amount of minutes to advance by
