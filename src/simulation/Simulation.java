@@ -1,6 +1,6 @@
 package simulation;
 
-import agentbasedmodel.Agent;
+import agentbasedmodel.*;
 import mosquitomodel.*;
 
 import java.io.BufferedReader;
@@ -18,6 +18,7 @@ public class Simulation {
     }
 
     private static Collection<Agent> parseParkVisitorsFromFile(BufferedReader reader) throws IOException {
+
         // get data from file
         String line = reader.readLine();
         ArrayList<String[]> abomimatrix = new ArrayList<>();
@@ -56,6 +57,16 @@ public class Simulation {
         } catch (IOException e){
             return;
         }
+
+        Park e = new Park(new Mosquito(17500));
+        EnvironmentManager em = new ParkManager(e, new Time(0, 30));
+        em.seedEnvironment(agents);
+
+        SimulationOperator so = new SimulationOperator(em, 48);
+
+        so.runSimulation();
+        System.out.println(so.getData());
+
     }
 
 }
