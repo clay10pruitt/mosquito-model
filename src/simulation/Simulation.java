@@ -1,28 +1,38 @@
 package simulation;
 
 import agentbasedmodel.Agent;
-import agentbasedmodel.Report;
-import agentbasedmodel.Time;
 import mosquitomodel.*;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedHashSet;
 
 public class Simulation {
 
-    private static Collection<Agent> createParkVisitors(){
+    private static BufferedReader createBufferedReaderForFile(String file) throws FileNotFoundException{
+        return new BufferedReader(new FileReader(file));
+    }
 
-        Collection<Agent> parkVisitors = new LinkedHashSet<>();
+    private static Collection<Agent> parseParkVisitorsFromFile(BufferedReader reader) throws IOException {
+        // get data from file
+        String line = reader.readLine();
+        ArrayList<String[]> abomimatrix = new ArrayList<>();
+        while ((line = reader.readLine()) != null){
+            String[] values = line.split(",");
+            abomimatrix.add(values);
+        }
 
-        // create Bob
-        ParkVisitorBiology bobBiology = new ParkVisitorBiology(44, 16000, 16000, 0);
-        Schedule bobSchedule = new Schedule(new Time(17, 0), new Time(19, 0));
-        ParkVisitor bob = new ParkVisitor("Bob", bobBiology, bobSchedule);
+        // build collection of Agents
+        Collection<Agent> agents = new LinkedHashSet<>();
+        for (String[] args : abomimatrix){
+            agents.add(new ParkVisitor(args));
+        }
 
-        // add Bob to the collection of visitors
-        parkVisitors.add(bob);
-
-        return parkVisitors;
+        return agents;
     }
 
     /**
@@ -31,23 +41,21 @@ public class Simulation {
      */
     public static void main(String[] args){
 
-        // create the agents
-        Collection<Agent> parkVisitors = createParkVisitors();
+        // create buffered reader to read input file
+        BufferedReader reader = null;
+        try {
+            reader = createBufferedReaderForFile("resources/agents.csv");
+        } catch (FileNotFoundException e){
+            return;
+        }
 
-        // initialize objects needed for simulation
-        Mosquito mosquito = new Mosquito(17500);
-        Park park = new Park(mosquito);
-        ParkManager parkManager = new ParkManager(park, new Time(0, 15));
-        parkManager.seedEnvironment(parkVisitors);
-        SimulationOperator simulationOperator = new SimulationOperator(parkManager, 96);
-
-        // run simulation
-        simulationOperator.runSimulation();
-        Report data = simulationOperator.getData();
-
-        // print report
-        System.out.println(data);
-
+        // create collection of Agents from file
+        Collection<Agent> agents = null;
+        try {
+            agents = parseParkVisitorsFromFile(reader);
+        } catch (IOException e){
+            return;
+        }
     }
 
 }
