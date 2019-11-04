@@ -13,10 +13,23 @@ import java.util.LinkedHashSet;
 
 public class Simulation {
 
+    /**
+     * Creates a BufferedReader for the given file.
+     * @param file name of file to create BufferedReader for
+     * @return a BufferedReader for the given file
+     * @throws FileNotFoundException
+     */
     private static BufferedReader createBufferedReaderForFile(String file) throws FileNotFoundException{
         return new BufferedReader(new FileReader(file));
     }
 
+    /**
+     * Parses a .csv file to create Agents. Lines should be in the following form:
+     *      [id, time in, time out, age, max hearable frequency]
+     * @param reader BufferedReader for reading the .csv file
+     * @return a Collection of Agents
+     * @throws IOException
+     */
     private static Collection<Agent> parseParkVisitorsFromFile(BufferedReader reader) throws IOException {
 
         // get data from file
