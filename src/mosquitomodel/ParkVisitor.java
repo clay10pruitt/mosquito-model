@@ -101,6 +101,7 @@ public class ParkVisitor extends Agent {
                 "age: " + this.getAge() +
                 "; max frequency: " + this.getMaxFrequencyHearable() +
                 "; time in: " + this.getTimeIGoToPark() +
-                "; time out: " + getTimeIGoToPark());
+                "; time out: " + getTimeIGoToPark() +
+                "\n");
     }
 }
