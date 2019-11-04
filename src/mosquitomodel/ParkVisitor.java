@@ -22,6 +22,36 @@ public class ParkVisitor extends Agent {
     }
 
     /**
+     * Constructor for ParkVisitor that builds a ParkVisitor from a string of arguments.
+     * @param args: array of arguments set up as:
+     *            args[0] => id
+     *            args[1] => scheduled time in
+     *            args[2] => scheduled time out
+     *            args[3] => age
+     *            args[4] => maxFrequencyHearable
+     */
+    public ParkVisitor(String[] args){
+
+        // invoke Agent's constructor
+        super(args[0]);
+
+        // build Schedule
+        Time timeIn = new Time(args[1]);
+        Time timeOut = new Time(args[2]);
+        Schedule schedule = new Schedule(timeIn, timeOut);
+
+        // build Biology
+        int age = Integer.parseInt(args[3]);
+        int maxFrequencyHearable = Integer.parseInt(args[4]);
+        ParkVisitorBiology biology = new ParkVisitorBiology(age, maxFrequencyHearable);
+
+        // construct this ParkVisitor
+        this.schedule = schedule;
+        this.biology = biology;
+
+    }
+
+    /**
      * @return the age of this visitor
      */
     public int getAge(){
@@ -65,4 +95,12 @@ public class ParkVisitor extends Agent {
         return this.schedule.getOutTime();
     }
 
+    @Override
+    public String toString() {
+        return ("Agent(" + this.getId() + ") => " +
+                "age: " + this.getAge() +
+                "; max frequency: " + this.getMaxFrequencyHearable() +
+                "; time in: " + this.getTimeIGoToPark() +
+                "; time out: " + getTimeIGoToPark());
+    }
 }
