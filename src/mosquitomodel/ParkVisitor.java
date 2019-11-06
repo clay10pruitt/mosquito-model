@@ -67,19 +67,6 @@ public class ParkVisitor extends Agent {
 
 
     /**
-     * @return this visitor's aversion to visiting the park
-     */
-    public float getAversionToPark(){
-        return biology.getAversionToPark();
-    }
-
-    /**
-     * Sets this ParkVisitor's aversion to visiting the park.
-     * @param aversionToPark new value of aversionToPark
-     */
-    public void setAversionToPark(int aversionToPark) { biology.setAversionToPark(aversionToPark); }
-
-    /**
      * Gets the Time this ParkVisitor goes to the Park.
      * @return Time object
      */
