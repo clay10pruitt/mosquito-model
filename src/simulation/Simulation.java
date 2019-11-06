@@ -48,8 +48,10 @@ public class Simulation {
                 value = new Time((String) value);
             } else if (param.equals("numberOfCycles")){
                 value = Integer.parseInt((String) value);
-            } else if (param.equals("initialTime")){
+            } else if (param.equals("initialTime")) {
                 value = new Time((String) value);
+            } else if (param.equals("mosquitoFrequency")){
+                value = Integer.parseInt((String) value);
             } else if (param.equals("mosquitoActivationTime")){
                 value = new Time((String) value);
             } else if (param.equals("mosquitoDeactivationTime")) {
@@ -126,7 +128,7 @@ public class Simulation {
             return;
         }
 
-        Park e = new Park(new Mosquito(17500));
+        Park e = new Park(new Mosquito((Integer) config.get("mosquitoFrequency")));
         EnvironmentManager em = new ParkManager(
                 e,
                 (Time) config.get("cycleLength"),
