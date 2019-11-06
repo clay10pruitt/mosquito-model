@@ -13,30 +13,29 @@ public class ParkManager extends EnvironmentManager {
      */
 
     // the earliest Time for the Mosquito to be activated by
-    private Time mosquitoActivationTime = new Time(20, 0);
+    private Time mosquitoActivationTime;
     // the earliest Time for the Mosquito to be deactivated by
-    private Time mosquitoDeactivationTime = new Time(8, 0);
+    private Time mosquitoDeactivationTime;
 
     // ParkVisitors that are currently in the Simulation but NOT the Park
     private ArrayList<Agent> limbo;
+
 
     /*
     Constructor.
      */
 
-    /**
-     * Constructor for ParkManager that initializes the starting time to 8:00 AM.
-     * @param environment the Park this ParkManager will manage
-     * @param cycleLength the amount of Time that will pass with every cycle
-     */
-    public ParkManager(Park environment, Time cycleLength){
+    public ParkManager(Park environment, Time cycleLength, Time currentTime, Time mosquitoActivationTime, Time mosquitoDeactivationTime){
         // invoke EnvironmentManager's constructor
         super(environment, cycleLength);
-        // set starting time to 8:00 AM
-        this.currentTime = new Time(8, 0);
+        // set private fields
+        this.currentTime = currentTime;
+        this.mosquitoActivationTime = mosquitoActivationTime;
+        this.mosquitoDeactivationTime = mosquitoDeactivationTime;
         // initialize limbo
         limbo = new ArrayList<>();
     }
+
 
     /*
     Helper functions for runCycle().
@@ -65,6 +64,7 @@ public class ParkManager extends EnvironmentManager {
             }
         }
     }
+
 
     /**
      * Checks the Schedules of every ParkVisitor within the Park to correct if they should be in or out of the Park.
