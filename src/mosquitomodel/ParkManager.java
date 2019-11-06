@@ -25,11 +25,11 @@ public class ParkManager extends EnvironmentManager {
     Constructor.
      */
 
-    public ParkManager(Park environment, Time cycleLength, Time currentTime, Time mosquitoActivationTime, Time mosquitoDeactivationTime){
+    public ParkManager(Park environment, Time cycleLength, Time initialTime, Time mosquitoActivationTime, Time mosquitoDeactivationTime){
         // invoke EnvironmentManager's constructor
         super(environment, cycleLength);
         // set private fields
-        this.currentTime = currentTime;
+        this.currentTime = initialTime;
         this.mosquitoActivationTime = mosquitoActivationTime;
         this.mosquitoDeactivationTime = mosquitoDeactivationTime;
         // initialize limbo
