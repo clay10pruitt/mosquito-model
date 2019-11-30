@@ -16,6 +16,8 @@ public class ParkManager extends EnvironmentManager {
     private Time mosquitoActivationTime;
     // the earliest Time for the Mosquito to be deactivated by
     private Time mosquitoDeactivationTime;
+    // track whether the Mosquito is currently active
+    private boolean mosquitoActive;
 
     // ParkVisitors that are currently in the Simulation but NOT the Park
     private ArrayList<Agent> limbo;
@@ -32,6 +34,7 @@ public class ParkManager extends EnvironmentManager {
         this.currentTime = initialTime;
         this.mosquitoActivationTime = mosquitoActivationTime;
         this.mosquitoDeactivationTime = mosquitoDeactivationTime;
+        this.mosquitoActive = false;
         // initialize limbo
         limbo = new ArrayList<>();
     }
@@ -57,10 +60,12 @@ public class ParkManager extends EnvironmentManager {
         if (inActiveTime){
             if(!park.mosquitoIsActive()){
                 park.activateMosquito();
+                this.mosquitoActive = true;
             }
         } else {
             if (park.mosquitoIsActive()){
                 park.deactivateMosquito();
+                this.mosquitoActive = false;
             }
         }
     }
@@ -121,12 +126,42 @@ public class ParkManager extends EnvironmentManager {
 
     }
 
+    private void checkMosquito(){
+
+        // nothing to check if Mosquito is inactive
+        if (!mosquitoActive){
+            return;
+        }
+
+        // get population
+        Park park = (Park) this.environment;
+        Collection<Agent> agents = park.getPopulation();
+        // get Mosquito frequency
+        float frequency = park.getMosquitoFrequency();
+
+        // if an agent cannot tolerate the frequency, have them leave the park
+        Collection<Agent> agentstoRemove = new LinkedHashSet<>();
+        for (Agent agent : agents){
+            ParkVisitor pv = (ParkVisitor) agent;
+            if (frequency < pv.getMaxFrequencyHearable()){
+                agentstoRemove.add(agent);
+            }
+        }
+
+        for (Agent agent : agentstoRemove){
+            this.environment.removeFromPopulation(agent);
+            this.limbo.add(agent);
+        }
+
+    }
+
     /**
      * Generates a Report based on the current state of the Simulation.
      */
     private Report generateReport(){
         String text = "Report for cycle#" + this.currentCycle;
-        text += "\t\n Time at Cycle Start: " + this.currentTime;
+        text += "\n\tMosquito active: " + this.mosquitoActive;
+        text += "\n\tTime at Cycle Start: " + this.currentTime;
         text += "\n\tCurrent Population (" + this.environment.sizeOfPopulation() + "): ";
         for (Agent agent : this.environment.getPopulation()){
             text += "\n\t\t" + agent;
@@ -149,6 +184,7 @@ public class ParkManager extends EnvironmentManager {
 
         checkAndCorrectMosquito();
         checkAndCorrectSchedules();
+        checkMosquito();
 
         Report report = generateReport();
 

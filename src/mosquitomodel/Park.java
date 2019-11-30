@@ -35,6 +35,11 @@ public class Park extends Environment {
     }
 
     /**
+     * @return this Park's Mosquito's emitted frequency
+     */
+    public float getMosquitoFrequency() { return this.mosquito.getEmittedFrequency(); }
+
+    /**
      * @return whether or not this Park's Mosquito is active
      */
     public boolean mosquitoIsActive() { return this.mosquito.isActive(); }
