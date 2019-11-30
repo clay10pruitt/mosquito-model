@@ -18,7 +18,7 @@ public class Report {
      * @param report the Report to combine with this Report
      */
     public void add(Report report){
-        this.info += "\n\n" + report.info;
+        this.info += "\n" + report.info;
     }
 
     /**
