@@ -4,6 +4,7 @@ import agentbasedmodel.*;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.LinkedHashSet;
 
 public class ParkManager extends EnvironmentManager {
@@ -195,6 +196,40 @@ public class ParkManager extends EnvironmentManager {
         return (sum / this.environment.sizeOfPopulation());
     }
 
+    /**
+     * Gets the current mode age of the population.
+     * @return the mode age of the population
+     */
+    private int getModeAge(){
+        // create count map
+        HashMap<Integer, Integer> countMap = new HashMap<>();
+        for (Agent agent : this.environment.getPopulation()){
+            ParkVisitor pv = (ParkVisitor) agent;
+            Integer age = new Integer(pv.getAge());
+
+            if (countMap.containsKey(age)) {
+                int count = countMap.get(age) + 1;
+                countMap.put(age, count);
+            } else {
+                countMap.put(age, 1);
+            }
+        }
+
+        int mode = -1;
+
+        // find the mode
+        int highest_count = -1;
+        for (Integer key : countMap.keySet()){
+            if (countMap.get(key) > highest_count){
+                highest_count = countMap.get(key);
+                mode = key;
+            }
+        }
+
+        return mode;
+
+    }
+
     /*
     Report generation functions.
      */
@@ -206,7 +241,8 @@ public class ParkManager extends EnvironmentManager {
         String text = this.currentCycle + ", " +
                 this.currentTime + ", " +
                 this.environment.sizeOfPopulation() + ", " +
-                this.getMeanAge();
+                this.getMeanAge() + ", " +
+                this.getModeAge();
         return new Report(text);
     }
 
