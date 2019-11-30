@@ -25,9 +25,9 @@ public class ParkVisitor extends Agent {
      * Constructor for ParkVisitor that builds a ParkVisitor from a string of arguments.
      * @param args: array of arguments set up as:
      *            args[0] => id
-     *            args[1] => scheduled time in
-     *            args[2] => scheduled time out
-     *            args[3] => age
+     *            args[1] => age
+     *            args[2] => scheduled time in
+     *            args[3] => scheduled time out
      *            args[4] => maxFrequencyHearable
      */
     public ParkVisitor(String[] args){
@@ -36,12 +36,12 @@ public class ParkVisitor extends Agent {
         super(args[0]);
 
         // build Schedule
-        Time timeIn = new Time(args[1]);
-        Time timeOut = new Time(args[2]);
+        Time timeIn = new Time(args[2]);
+        Time timeOut = new Time(args[3]);
         Schedule schedule = new Schedule(timeIn, timeOut);
 
         // build Biology
-        int age = Integer.parseInt(args[3]);
+        int age = Integer.parseInt(args[1]);
         int maxFrequencyHearable = Integer.parseInt(args[4]);
         ParkVisitorBiology biology = new ParkVisitorBiology(age, maxFrequencyHearable);
 
