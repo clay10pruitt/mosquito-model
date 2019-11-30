@@ -129,13 +129,14 @@ public class Simulation {
         }
 
         Park e = new Park(new Mosquito((Integer) config.get("mosquitoFrequency")));
-        EnvironmentManager em = new ParkManager(
+        EnvironmentManager em_mosquitoyes = new ParkManager(
                 e,
                 (Time) config.get("cycleLength"),
                 (Time) config.get("initialTime"),
                 (Time) config.get("mosquitoActivationTime"),
                 (Time) config.get("mosquitoDeactivationTime"));
-        em.seedEnvironment(agents);
+        em_mosquitoyes.seedEnvironment(agents);
+
 
         SimulationOperator so = new SimulationOperator(
                 em,

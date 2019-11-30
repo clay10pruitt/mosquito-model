@@ -24,9 +24,17 @@ public class ParkManager extends EnvironmentManager {
 
 
     /*
-    Constructor.
+    Constructors.
      */
 
+    /**
+     * Constructor for ParkManager.
+     * @param environment the Park managed by this ParkManager
+     * @param cycleLength the length of Time each cycle lasts for
+     * @param initialTime the initial time of the Environment
+     * @param mosquitoActivationTime the Time the Mosquito will activate
+     * @param mosquitoDeactivationTime the Time the Mosquito will deactivate
+     */
     public ParkManager(Park environment, Time cycleLength, Time initialTime, Time mosquitoActivationTime, Time mosquitoDeactivationTime){
         // invoke EnvironmentManager's constructor
         super(environment, cycleLength);
@@ -39,6 +47,16 @@ public class ParkManager extends EnvironmentManager {
         limbo = new ArrayList<>();
     }
 
+    /**
+     * Constructor for a ParkManager that contains a Park with no Mosquito.
+     * @param environment the Park managed by this ParkManager
+     * @param cycleLength the length of Time each cycle lasts for
+     * @param initialTime the initial time of the Environment
+     */
+    public ParkManager(Park environment, Time cycleLength, Time initialTime){
+        this(environment, cycleLength, initialTime, null, null);
+    }
+
 
     /*
     Helper functions for runCycle().
@@ -48,6 +66,11 @@ public class ParkManager extends EnvironmentManager {
      * Checks what state the Mosquito is in and corrects the state if it is incorrect.
      */
     private void checkAndCorrectMosquito(){
+
+        // if the Park has no set activation/deactivation time for the Mosquito, abort the check
+        if (mosquitoActivationTime == null || mosquitoDeactivationTime == null){
+            return;
+        }
 
         Park park = (Park) this.environment;
 
