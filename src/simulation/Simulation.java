@@ -128,22 +128,45 @@ public class Simulation {
             return;
         }
 
-        Park e = new Park(new Mosquito((Integer) config.get("mosquitoFrequency")));
+
+        // create two EnvironmentManagers; one with a Mosquito and one without
+        Park e1 = new Park(new Mosquito((Integer) config.get("mosquitoFrequency")));
+        Park e2 = new Park(null);
+
         EnvironmentManager em_mosquitoyes = new ParkManager(
-                e,
+                e1,
                 (Time) config.get("cycleLength"),
                 (Time) config.get("initialTime"),
                 (Time) config.get("mosquitoActivationTime"),
-                (Time) config.get("mosquitoDeactivationTime"));
+                (Time) config.get("mosquitoDeactivationTime")
+        );
         em_mosquitoyes.seedEnvironment(agents);
 
+        EnvironmentManager em_mosquitono = new ParkManager(
+                e2,
+                (Time) config.get("cycleLength"),
+                (Time) config.get("initialTime")
+        );
+        em_mosquitono.seedEnvironment(agents);
 
-        SimulationOperator so = new SimulationOperator(
-                em,
-                (Integer) config.get("numberOfCycles"));
+        // create a SimulationOperator for each EnvironmentManager
+        SimulationOperator so_mosquitoyes = new SimulationOperator(
+                em_mosquitoyes,
+                (Integer) config.get("numberOfCycles")
+        );
 
-        so.runSimulation();
-        System.out.println(so.getData());
+        SimulationOperator so_mosquitono = new SimulationOperator(
+                em_mosquitono,
+                (Integer) config.get("numberOfCycles")
+        );
+
+        // run both SimulationOperators
+        so_mosquitoyes.runSimulation();
+        so_mosquitono.runSimulation();
+
+        System.out.println(so_mosquitoyes.getData());
+        System.out.println("=======================================");
+        System.out.println(so_mosquitono.getData());
 
     }
 
