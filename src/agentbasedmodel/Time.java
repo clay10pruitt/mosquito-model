@@ -59,7 +59,7 @@ public class Time implements Comparable<Time> {
      * Checks if this Time is between the two given Times.
      * @param time01 first Time
      * @param time02 second Time
-     * @param inclusive whether the check will be inclusive of time02 and time02
+     * @param inclusive whether the check will be inclusive of time01 and time02
      * @return boolean
      */
     public boolean isBetween(Time time01, Time time02, boolean inclusive){
