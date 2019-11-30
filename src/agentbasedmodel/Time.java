@@ -56,67 +56,36 @@ public class Time implements Comparable<Time> {
     }
 
     /**
-     * Checks if this Time is between the two given Times.
-     * @param time01 first Time
-     * @param time02 second Time
+     * Checks if this Time is between the first Time (left-bound) and the second Time (right-bound).
+     * @param time01 first Time representing the left-bound of the interval
+     * @param time02 second Time representing the right-bound of the interval
      * @param inclusive whether the check will be inclusive of time01 and time02
      * @return boolean
      */
     public boolean isBetween(Time time01, Time time02, boolean inclusive){
 
-        // determine the greater and lesser times
-        Time greater = null;
-        Time lesser = null;
-        switch (time01.compareTo(time02)){
-            case -1:
-                greater = time02;
-                lesser = time01;
-                break;
-            case 1:
-                greater = time01;
-                lesser = time02;
-                break;
-            case 0:
-                /*
-                If both time01 and time02 are equal, then this Time can only be between both of them if
-                    1) inclusive = true
-                    2) This Time equals time01 or time02 (as if it equals one it must equal both).
-                 */
-                if (inclusive){
-                    return (this.equals(time01));
-                } else {
-                    return false;
-                }
+        // threshold for inclusivity
+        int threshold = 1;
+        if (inclusive){
+            threshold = 0;
         }
 
-        // determine if this Time object is greater than the greater Time
-        switch (this.compareTo(greater)){
-            case 1:
-                // this Time is greater than the greater Time
-                return false;
-            case 0:
-                // if we are not inclusive, then this Time is not less than the greater Time
-                if (!inclusive){
-                    return false;
-                }
-                break;
+        if (time02.getHour() >= time01.getHour()){
+            // both times are in the same day
+            if (this.compareTo(time01) >= threshold && this.compareTo(time02) <= -1 * threshold){
+                return true;
+            }
+        } else if (time02.getHour() < time01.getHour()) {
+            // times are split between two days
+            if (this.compareTo(time01) >= threshold){
+                return true;
+            } else if (this.compareTo(time02) <= -1 * threshold){
+                return true;
+            }
         }
 
-        // determine if this Time object is less than the lesser Time
-        switch (this.compareTo(lesser)){
-            case -1:
-                // this Time is less than the lesser Time
-                return false;
-            case 0:
-                // if we are not inclusive, then this Time is not greater than the lesser Time
-                if (!inclusive){
-                    return false;
-                }
-                break;
-        }
-
-        // this Time must be in-between the lesser and greater Times
-        return true;
+        // this Time is not within the given bounds
+        return false;
     }
 
     /**
