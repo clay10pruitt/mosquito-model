@@ -59,7 +59,7 @@ public class ParkManager extends EnvironmentManager {
 
 
     /*
-    Helper functions for runCycle().
+    Checks (helper functions) for runCycle().
      */
 
     /**
@@ -178,11 +178,35 @@ public class ParkManager extends EnvironmentManager {
 
     }
 
+    /*
+    Data collection functions.
+     */
+
+    /**
+     * Gets the current mean age of the population.
+     * @return the mean age of the population
+     */
+    private float getMeanAge(){
+        float sum = 0;
+        for (Agent agent : this.environment.getPopulation()){
+            ParkVisitor pv = (ParkVisitor) agent;
+            sum += pv.getAge();
+        }
+        return (sum / this.environment.sizeOfPopulation());
+    }
+
+    /*
+    Report generation functions.
+     */
+
     /**
      * Generates a Report based on the current state of the Simulation.
      */
     private Report generateReport(){
-        String text = this.currentCycle + ", " + this.currentTime + ", " + this.environment.sizeOfPopulation();
+        String text = this.currentCycle + ", " +
+                this.currentTime + ", " +
+                this.environment.sizeOfPopulation() + ", " +
+                this.getMeanAge();
         return new Report(text);
     }
 

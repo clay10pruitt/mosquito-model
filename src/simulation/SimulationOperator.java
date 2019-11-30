@@ -26,7 +26,7 @@ public class SimulationOperator {
     public SimulationOperator(EnvironmentManager environmentManager, int numberOfCyclesToRun){
         this.environmentManager = environmentManager;
         this.numberOfCyclesToRun = numberOfCyclesToRun;
-        this.data = new Report("cycle, time, park population");
+        this.data = new Report("cycle, time, park population, age mean");
     }
 
 
