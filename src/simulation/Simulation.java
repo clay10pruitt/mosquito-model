@@ -3,10 +3,7 @@ package simulation;
 import agentbasedmodel.*;
 import mosquitomodel.*;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.*;
 
 public class Simulation {
@@ -19,6 +16,20 @@ public class Simulation {
      */
     private static BufferedReader createBufferedReaderForFile(String file) throws FileNotFoundException{
         return new BufferedReader(new FileReader(file));
+    }
+
+    /**
+     * Outputs a given Report to a given file.
+     * @param report the Report to output
+     * @param fileName the file to output to
+     * @throws IOException
+     */
+    private static void outputReportToFile(Report report, File fileName) throws IOException{
+        // create the file and output to it
+        BufferedWriter out = new BufferedWriter(new FileWriter(fileName, false));
+        out.write(report.getInfo());
+        // close output stream
+        out.close();
     }
 
 
@@ -164,9 +175,16 @@ public class Simulation {
         so_mosquitoyes.runSimulation();
         so_mosquitono.runSimulation();
 
-        System.out.println(so_mosquitoyes.getData());
-        System.out.println("=======================================");
-        System.out.println(so_mosquitono.getData());
+        // output files
+        File file_mosquitoyes = new File("reports/reportwithmosquito.csv");
+        File file_mosquitono = new File("reports/reportwithoutmosquito.csv");
+
+        try {
+            outputReportToFile(so_mosquitoyes.getData(), file_mosquitoyes);
+            outputReportToFile(so_mosquitono.getData(), file_mosquitono);
+        } catch (IOException e){
+            return;
+        }
 
     }
 
