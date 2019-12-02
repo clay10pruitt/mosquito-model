@@ -1,0 +1,6 @@
+cycleLength=00:15
+numberOfCycles=96
+initialTime=12:00
+mosquitoFrequency=17500
+mosquitoActivationTime=20:00
+mosquitoDeactivationTime=04:00
