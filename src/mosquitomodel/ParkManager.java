@@ -76,9 +76,7 @@ public class ParkManager extends EnvironmentManager {
         Park park = (Park) this.environment;
 
         // determine if we are currently within the Mosquito's active hours
-        boolean inActiveTime =
-                currentTime.isBetween(mosquitoActivationTime, new Time(23, 59), false)
-                || currentTime.isBetween(new Time(0, 0), mosquitoDeactivationTime, false);
+        boolean inActiveTime = currentTime.isBetween(mosquitoActivationTime, mosquitoDeactivationTime);
 
         // if necessary, correct Mosquito's activation state
         if (inActiveTime){
