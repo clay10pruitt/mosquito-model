@@ -143,7 +143,34 @@ def main():
 
     plotAndOutput(title_01, data_01, labels)
 
+    # mean age over time w/ and w/o mosquito
+    mean_with_mosquito = [float(x) for x in data_with_mosquito[3]]
+    mean_without_mosquito = [float(x) for x in data_without_mosquito[3]]
+    data_01 = (time, mean_with_mosquito)
+    data_02 = (time, mean_without_mosquito)
+    label_y = "Mean Age (years)"
+    labels = (label_x, label_y)
+    title_01 = "Mean Age of Park Over Time (with Mosquito used)"
+    title_02 = "Mean Age of Park Over Time (without Mosquito used)"
 
+    plotAndOutput(title_01, data_01, labels)
+    plotAndOutput(title_02, data_02, labels)
+
+    # difference in age means
+    mean_diff = []
+    i = 0
+    while i < len(mean_with_mosquito):
+        diff = mean_with_mosquito[i] - mean_without_mosquito[i]
+        mean_diff.append(diff)
+        i += 1
+    data_01 = (time, mean_diff)
+    label_y = "Difference in Mean Age (years)"
+    labels = (label_x, label_y)
+    title_01 = "Difference in Mean Age of Park With Mosquito\nvs Mean Age of Park Without Mosquito"
+
+    plotAndOutput(title_01, data_01, labels)
+
+    # done
     print("Finished!")
     
 
