@@ -129,6 +129,20 @@ def main():
     plotAndOutput(title_01, data_01, labels)
     plotAndOutput(title_02, data_02, labels)
 
+    # difference in population w/ mosquito compared to w/o mosquito
+    pop_diff = []
+    i = 0
+    while i < len(pop_with_mosquito):
+        diff = pop_with_mosquito[i] - pop_without_mosquito[i]
+        pop_diff.append(diff)
+        i += 1
+    data_01 = (time, pop_diff)
+    label_y = "Difference in Population (people)"
+    labels = (label_x, label_y)
+    title_01 = "Difference in Population of Park With Mosquito\nvs Population of Park Without Mosquito"
+
+    plotAndOutput(title_01, data_01, labels)
+
 
     print("Finished!")
     
